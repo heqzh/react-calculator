@@ -46,9 +46,8 @@ function reducer(state, { type, payload }) {
         };
       }
       if (payload.digit === "0" && state.currentOperand === "0") return state;
-      if (payload.digit === "." && state.currentOperand.includes(".")) {
+      if (payload.digit === "." && state.currentOperand.includes("."))
         return state;
-      }
       return {
         ...state,
         currentOperand: `${state.currentOperand || ""}${payload.digit}`,
@@ -94,6 +93,7 @@ function reducer(state, { type, payload }) {
           currentOperand: updated,
         };
       }
+      break;
     case ACTIONS.EVALUATE:
       if (
         state.currentOperand === null ||
@@ -131,6 +131,8 @@ function evaluate({ currentOperand, previousOperand, operation }) {
     case "÷":
       computation = previous / current;
       break;
+    default:
+      return;
   }
   return computation.toString();
 }
